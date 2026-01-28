@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anshu Traders - iDPRT Barcode Solutions Nepal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background-color: #fcfcfd;
+        overflow-x: hidden;
+      }
+
+      /* हिरो सेक्सन र एटोमिक क्यानभास */
+      .hero-section {
+        background: #f8fafc;
+        position: relative;
+        overflow: hidden;
+        min-height: 85vh;
+        display: flex;
+        align-items: center;
+      }
+      #atomic-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        opacity: 0.5;
+        pointer-events: none;
+      }
+      .glass {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(20px);
+      }
+
+      .brand-blue {
+        color: #0056b3;
+      }
+      .bg-brand-blue {
+        background-color: #0056b3;
+      }
+      .brand-red {
+        color: #eb1c25;
+      }
+      .bg-brand-red {
+        background-color: #eb1c25;
+      }
+      .btn-gradient {
+        background: linear-gradient(135deg, #eb1c25 0%, #c4121a 100%);
+        box-shadow: 0 10px 20px -5px rgba(235, 28, 37, 0.4);
+        transition: all 0.3s ease;
+      }
+      .btn-gradient:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px -5px rgba(235, 28, 37, 0.5);
+      }
+
+      .typewriter-cursor {
+        display: inline-block;
+        width: 3px;
+        background-color: #eb1c25;
+        margin-left: 4px;
+        animation: blink 1s step-end infinite;
+      }
+      @keyframes blink {
+        from,
+        to {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      /* प्रोडक्ट कार्ड र होभर लजिक */
+      .product-card {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        overflow: hidden;
+        border-bottom: 1px solid #f1f5f9;
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      @media (min-width: 1024px) {
+        .product-card {
+          flex-direction: row;
+        }
+        .product-card.reverse {
+          flex-direction: row-reverse;
+        }
+        .image-pane,
+        .details-pane {
+          width: 50% !important;
+          flex: none;
+        }
+      }
+      .image-pane {
+        width: 100%;
+        background: #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4rem;
+        position: relative;
+      }
+      .details-pane {
+        width: 100%;
+        padding: 4rem 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: #ffffff;
+        transition: all 0.5s ease;
+      }
+
+      .product-card:hover .details-pane {
+        background-color: #003366;
+        color: #ffffff;
+      }
+      .product-card:hover .tag-badge {
+        background-color: rgba(255, 255, 255, 0.15) !important;
+        color: #ffffff !important;
+      }
+      .product-card:hover .feature-icon {
+        color: #60a5fa !important;
+      }
+      .product-card:hover .price-label,
+      .product-card:hover .slide-desc,
+      .product-card:hover .qty-label {
+        color: #ffffff !important;
+      }
+      .product-card:hover .card-btn-primary {
+        background-color: #ffffff;
+        color: #eb1c25;
+        border-color: #ffffff;
+      }
+
+      /* हिरो स्लाइडर मेकानिक्स */
+      .carousel-container {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        height: 100%;
+      }
+      .carousel-track {
+        display: flex;
+        transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+        height: 100%;
+      }
+      .hero-slide {
+        min-width: 100%;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* स्लाइडर इन्डिकेटरहरू */
+      .hero-dot {
+        transition: all 0.4s ease;
+        cursor: pointer;
+        height: 10px;
+        width: 10px;
+        border-radius: 999px;
+        background-color: #cbd5e1;
+        border: none;
+      }
+      .hero-dot.active {
+        background-color: #eb1c25;
+        width: 40px;
+      }
+
+      /* क्वान्टिटी कन्ट्रोल र रङहरू */
+      .qty-container {
+        display: flex;
+        align-items: center;
+        background: #ffffff;
+        justify-content: space-between;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        border: 2px solid #e2e8f0;
+        transition: all 0.3s ease;
+      }
+      .qty-btn {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-weight: bold;
+        background: #0056b3;
+        border: none;
+        color: #ffffff;
+        transition: all 0.3s ease;
+      }
+      .qty-btn:hover {
+        background-color: #003366;
+      }
+      .qty-input-field {
+        width: 50px;
+        text-align: center;
+        background: transparent;
+        border: none;
+        font-weight: 800;
+        font-size: 1rem;
+        color: #1e293b;
+        transition: all 0.3s ease;
+      }
+
+      .qty-input-field  :hover{
+        color: #c4121a;
+      }
+      /* कार्ड होभर गर्दा क्वान्टिटी सेक्सनको रङ परिवर्तन */
+      .product-card:hover .qty-container {
+        border-color: rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .product-card:hover .qty-btn {
+        background: #ffffff;
+        color: #eb1c25;
+      }
+      .product-card:hover .qty-input-field {
+        color: white;
+      }
+
+      .contact-widget {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 999;
+      }
+      .contact-toggle {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #eb1c25 0%, #c4121a 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 10px 25px rgba(235, 28, 37, 0.3);
+        color: white;
+        border: none;
+      }
+      .contact-dropdown {
+        position: absolute;
+        bottom: 75px;
+        right: 0;
+        background: white;
+        border-radius: 1rem;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        padding: 1rem;
+        min-width: 220px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: 0.3s;
+      }
+      .contact-dropdown.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+        border-radius: 0.75rem;
+        text-decoration: none;
+        color: #334155;
+        font-weight: 600;
+        font-size: 0.875rem;
+        transition: 0.2s;
+      }
+      .contact-item:hover {
+        background: #f8fafc;
+        color: #eb1c25;
+      }
+
+      .success-animate {
+        animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      }
+      @keyframes scaleIn {
+        from {
+          opacity: 0;
+          transform: scale(0.9) translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+
+      /* Mobile Responsive */
+      @media (max-width: 768px) {
+        .hero-section {
+          min-height: 60vh;
+        }
+        .hero-section h1 {
+          font-size: 2.5rem !important;
+        }
+        .product-card .details-pane {
+          padding: 2rem 1.5rem !important;
+        }
+        .image-pane {
+          padding: 2rem !important;
+          min-height: 300px;
+        }
+        .product-card h3 {
+          font-size: 1.75rem !important;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero-section h1 {
+          font-size: 2rem !important;
+        }
+        .image-pane {
+          padding: 1.5rem !important;
+          min-height: 250px;
+        }
+        .product-card h3 {
+          font-size: 1.5rem !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="selection:bg-red-100">
+    <!-- नेभिगेसन बार -->
+    <nav
+      class="fixed top-0 w-full glass z-[100] border-b border-slate-200/50 px-6 py-4 flex justify-between items-center"
+    >
+      <div class="flex items-center gap-3">
+        <img
+          src="images/logo.png"
+          alt="Anshu Traders Logo"
+          class="h-10 w-auto"
+        />
+      </div>
+      <div class="flex items-center gap-4">
+        <a
+          href="tel:++9779851423013"
+          class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-red-600 transition-colors"
+        >
+          <i data-lucide="phone-call" class="w-4 h-4 brand-red"></i> +977
+          9851423013
+        </a>
+        <a
+          href="#order-form"
+          class="bg-[#eb1c25] text-white px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-widest hover:opacity-90 shadow-lg shadow-red-100 transition-all active:scale-95"
+        >
+          Buy Now
+        </a>
+      </div>
+    </nav>
+
+    <!-- हिरो स्लाइडर सेक्सन (३ स्लाइडहरू) -->
+
+   <section class="hero-section overflow-hidden relative">
+      <canvas id="atomic-canvas"></canvas>
+
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-slate-950/80 z-10"
+      ></div>
+
+      <div class="carousel-container z-20 h-full w-full mt-20 relative">
+        <div class="carousel-track" id="hero-track">
+          <div class="hero-slide relative">
+            <div
+              class="absolute inset-0 bg-cover bg-center opacity-50"
+              style="background-image: url('images/landing1.png')"
+            ></div>
+
+            <div class="max-w-7xl mx-auto w-full h-full flex items-center justify-center relative z-30 py-20">
+              <div class="text-center max-w-4xl space-y-8 px-6">
+                <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm mx-auto">
+                  <span class="flex h-2 w-2 rounded-full bg-brand-red animate-pulse"></span>
+                  Stop Handwriting — Start Printing
+                </div>
+                <h1 class="text-4xl md:text-4xl lg:text-7xl font-black leading-[1.05] text-white tracking-tighter">
+                  <span id="typewriter-text"></span><span class="typewriter-cursor !bg-white">&nbsp;</span><br />
+                  <span class="text-brand-red italic">Solutions.</span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-200 font-medium leading-relaxed max-w-2xl mx-auto backdrop-blur-sm p-6 rounded-2xl">
+                  कुरियर पठाउँदा अझै हातले लेख्ने, स्केलले कागज काट्ने वा A4
+                  प्रिन्टरमा प्रिन्ट गरेर पेपर र महँगो इंकको सत्यानाश गर्दै
+                  हुनुहुन्छ? यो झन्झटिलो तरिका अब बन्द गर्नुस्!
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                  <a href="#lineup" class="btn-gradient text-white text-xs px-10 py-4 rounded-xl font-black uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl hover:scale-105 transition-transform duration-300 mx-auto sm:mx-0">
+                    View Catalog
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-slide relative">
+            <div
+              class="absolute inset-0 bg-cover bg-center opacity-50"
+              style="background-image: url('images/landing2.png')"
+            ></div>
+
+            <div class="max-w-7xl mx-auto w-full h-full flex items-center justify-center relative z-30 py-20">
+              <div class="text-center max-w-4xl space-y-8 px-6">
+                <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm mx-auto">
+                  Dashboard Direct Printing
+                </div>
+                <h2 class="text-4xl md:text-4xl lg:text-7xl font-black leading-[1.05] text-white tracking-tighter uppercase">
+                  Print Labels in <br /><span class="text-brand-red italic">2 Seconds.</span>
+                </h2>
+                <p class="text-lg md:text-xl text-slate-200 font-medium leading-relaxed max-w-2xl mx-auto-sm p-6 rounded-2xl">
+                  अब NCM, Gaunbesi, Pathao Parcel, र Daraz ड्यासबोर्डबाट सिधै
+                  डेलिभरी लेबल प्रिन्ट गर्नुस्। प्याकेजिङमा समय बचाउनुस् र आफ्नो
+                  ब्राण्ड भ्यालु बढाउनुस्।
+                </p>
+                <div class="flex gap-4 justify-center">
+                  <a href="#order-form" class="bg-white text-slate-950 text-xs px-10 py-4 rounded-xl font-black uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl hover:scale-105 transition-transform duration-300 mx-auto">
+                    Order Today
+                    <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-slide relative">
+            <div
+              class="absolute inset-0 bg-cover bg-center opacity-50"
+              style="background-image: url('images/landing1.png')"
+            ></div>
+
+            <div class="max-w-5xl mx-auto w-full h-full flex items-center justify-center relative z-30 py-20">
+              <div class="text-center max-w-4xl space-y-8 px-6">
+                <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm mx-auto">
+                  10+ Business Types Supported
+                </div>
+                <h2 class="text-4xl md:text-4xl lg:text-7xl font-black leading-[1.05] text-white tracking-tighter uppercase">
+                  Upgrade Your <br /><span class="text-brand-red italic">Brand Value.</span>
+                </h2>
+                <p class="text-lg md:text-xl text-slate-200 font-medium leading-relaxed max-w-2xl mx-auto backdrop-blur-sm p-6 rounded-2xl">
+                  तपाईंको फेसन स्टोर, ग्याजेट सप, कस्मेटिक्स, वा
+                  फार्मेसी—जुनसुकै बिजनेस होस्, डेलिभरीलाई फास्ट र प्रोफेसनल
+                  बनाउन iDPRT प्रिन्टर आजै ल्याउनुस्।
+                </p>
+                <a href="#lineup" class="btn-gradient text-white text-xs px-10 py-4 rounded-xl font-black uppercase tracking-widest shadow-xl inline-flex items-center gap-2">
+                  Compare Models
+                  <i data-lucide="layers" class="w-4 h-4"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-4 z-40" id="hero-dots-container">
+          <button onclick="gotoSlide(0)" class="hero-dot active bg-white/40 border border-white/20"></button>
+          <button onclick="gotoSlide(1)" class="hero-dot bg-white/40 border border-white/20"></button>
+          <button onclick="gotoSlide(2)" class="hero-dot bg-white/40 border border-white/20"></button>
+        </div>
+      </div>
+    </section>
+    <style>
+      /* Optional: Add these styles for better background layering */
+
+      /* Optional: Add animation for the background image */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 0.05;
+        }
+      }
+
+      .bg-cover {
+        animation: fadeIn 2s ease-in-out;
+      }
+    </style>
+
+    <!-- तुलना सेक्सन -->
+    <section class="py-24 px-6 bg-white">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <h2
+            class="text-4xl md:text-5xl font-black text-slate-900 mb-4 uppercase tracking-tighter"
+          >
+            Manual Packing <span class="text-red-600 italic">Killing</span> Your
+            Growth?
+          </h2>
+          <p
+            class="text-slate-500 font-bold text-xs uppercase tracking-[0.3em]"
+          >
+            Stop the Chaos — Start the Growth
+          </p>
+        </div>
+        <div class="grid lg:grid-cols-2 gap-8">
+          <!-- समस्या कार्ड -->
+          <div class="bg-slate-50 rounded-3xl p-8 border-2 border-slate-200">
+            <div class="flex items-center gap-4 mb-8">
+              <div
+                class="w-12 h-12 bg-red-100 rounded-2xl flex items-center justify-center text-red-600"
+              >
+                <i data-lucide="x-circle" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-2xl font-black text-slate-900">
+                Manual Nightmare
+              </h3>
+            </div>
+            <div class="space-y-4 text-slate-600">
+              <div
+                class="flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm border border-slate-100"
+              >
+                <i data-lucide="pen-tool" class="text-red-500 w-5 h-5 mt-1"></i>
+                <div>
+                  <p class="font-bold text-slate-900">Handwritten Addresses</p>
+                  <p class="text-sm">
+                    Unprofessional, hard to read, and prone to errors.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm border border-slate-100"
+              >
+                <i data-lucide="scissors" class="text-red-500 w-5 h-5 mt-1"></i>
+                <div>
+                  <p class="font-bold text-slate-900">Paper & Scissors Mess</p>
+                  <p class="text-sm">
+                    Wasting 2+ hours daily just cutting and taping labels.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- समाधान कार्ड -->
+          <div
+            class="bg-slate-900 text-white rounded-3xl p-8 shadow-2xl relative overflow-hidden"
+          >
+            <div class="flex items-center gap-4 mb-8">
+              <div
+                class="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center"
+              >
+                <i data-lucide="check-circle" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-2xl font-black uppercase tracking-tighter">
+                The Anshu Traders Solution
+              </h3>
+            </div>
+            <div class="space-y-4">
+              <div
+                class="flex items-start gap-4 p-4 bg-white/5 rounded-xl border border-white/10"
+              >
+                <i data-lucide="zap" class="text-blue-400 w-5 h-5 mt-1"></i>
+                <div>
+                  <p class="font-bold text-white">Instant Printing</p>
+                  <p class="text-sm text-slate-400">
+                    Direct dashboard printing in under 2 seconds. Peel and
+                    stick.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex items-start gap-4 p-4 bg-white/5 rounded-xl border border-white/10"
+              >
+                <i
+                  data-lucide="shield-check"
+                  class="text-blue-400 w-5 h-5 mt-1"
+                ></i>
+                <div>
+                  <p class="font-bold text-white">Save 70% Costs</p>
+                  <p class="text-sm text-slate-400">
+                    Save up to 70% by switching from expensive ink to thermal
+                    labels.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- प्रोडक्ट लाइनअप (अल्टरनेटिङ कार्डहरू) -->
+    <section id="lineup" class="bg-slate-50 border-y border-slate-200">
+      <div class="text-center py-16 bg-white border-b border-slate-100">
+        <h2
+          class="text-4xl font-black tracking-tighter text-slate-950 uppercase"
+        >
+          Nepal's Best Selling Lineup
+        </h2>
+        <p
+          class="text-slate-500 font-bold text-[11px] uppercase tracking-widest mt-2"
+        >
+          Certified iDPRT Hardware for Serious Business
+        </p>
+      </div>
+
+      <!-- iD888 कार्ड -->
+      <div class="product-card" data-model="iD888" data-price="13500">
+        <div class="image-pane">
+          <div class="relative w-full max-w-md product-gallery" id="p1-gallery">
+            <img
+              src="images/pd1.png"
+              alt="iD888"
+              class="active w-full h-auto drop-shadow-xl transition-all duration-500"
+            />
+            <img
+              src="images/pd2.png"
+              alt="iD888"
+              class="hidden w-full h-auto drop-shadow-xl transition-all duration-500"
+            />
+            <img
+              src="images/pd3.png"
+              alt="iD888"
+              class="hidden w-full h-auto drop-shadow-xl transition-all duration-500"
+            />
+            <div
+              class="absolute -top-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-xl"
+            >
+              Standard Choice
+            </div>
+            <button
+              onclick="nextGallerySlide('p1-gallery')"
+              class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow hover:bg-white z-20"
+            >
+              <i data-lucide="chevron-right"></i>
+            </button>
+            <button
+              onclick="prevGallerySlide('p1-gallery')"
+              class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow hover:bg-white z-20"
+            >
+              <i data-lucide="chevron-left"></i>
+            </button>
+          </div>
+        </div>
+        <div class="details-pane lg:px-16">
+          <div class="mb-6 flex justify-between items-center">
+            <span
+              class="tag-badge bg-blue-50 text-[#0056b3] px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-colors"
+              >Direct Thermal</span
+            >
+            <span
+              class="text-slate-400 font-bold line-through text-sm transition-colors"
+              >Rs. 18,000</span
+            >
+          </div>
+          <h3 class="text-3xl font-black mb-4 tracking-tight uppercase">
+            iD888 Desktop Master
+          </h3>
+          <p
+            class="slide-desc text-slate-500 mb-8 text-sm font-medium leading-relaxed max-w-lg transition-colors"
+          >
+            The workhorse for Daraz dispatching. "प्याकेजिङमा समय बचाउनुस् र
+            आफ्नो ब्राण्ड भ्यालु बढाउनुस्।" Zero-ink tech for 24/7 high-volume
+            reliability.
+          </p>
+          <div class="pt-6 border-t border-slate-100 space-y-6">
+            <div class="flex items-center justify-between">
+              <div class="flex flex-col">
+                <span
+                  class="price-label text-3xl font-black tracking-tight transition-colors"
+                  >Rs. 13,500</span
+                >
+                <span
+                  class="bg-brand-red text-white text-[9px] px-2 py-1 rounded font-black uppercase mt-1 w-fit transition-all"
+                  >-25% OFF</span
+                >
+              </div>
+              <div class="flex flex-col items-end">
+                <span
+                  class="qty-label text-[10px] font-black uppercase text-slate-400 mb-2 transition-colors font-bold"
+                  >Quantity</span
+                >
+                <div class="qty-container">
+                  <button onclick="changeQty(-1, 'p1-qty')" class="qty-btn">
+                    –
+                  </button>
+                  <input
+                    type="number"
+                    id="p1-qty"
+                    value="1"
+                    min="1"
+                    class="qty-input-field"
+                    readonly
+                  />
+                  <button onclick="changeQty(1, 'p1-qty')" class="qty-btn">
+                    +
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <button
+                onclick="setOrder('iD888', 'p1-qty')"
+                class="card-btn-primary py-4 bg-brand-red text-white font-black rounded-xl border-2 border-brand-red uppercase tracking-widest text-[10px] shadow-lg active:scale-95 transition-all"
+              >
+                Order Now
+              </button>
+               <button
+                onclick="openProductModal('modal-iD888')"
+                class="py-4 bg-white text-slate-700 font-black rounded-xl border-2 border-slate-200 hover:border-slate-800 hover:text-slate-900 uppercase tracking-widest text-[10px] shadow-sm transition-all"
+              >
+                Full Details
+              </button>
+              <a
+                href="https://wa.me/9779851423013"
+                class="flex items-center justify-center gap-2 py-4 bg-emerald-500 text-white font-black rounded-xl text-[9px] uppercase hover:bg-emerald-600"
+                ><i data-lucide="message-circle" class="w-4 h-4"></i>
+                WhatsApp</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IF4 Pro कार्ड -->
+      <div class="product-card reverse" data-model="IF4" data-price="20500">
+        <div class="image-pane">
+          <div class="relative w-full max-w-md product-gallery" id="p2-gallery">
+            <img
+              src="images/p23.png"
+              alt="IF4"
+              class="active w-full h-auto drop-shadow-xl transition-all duration-500"
+            />
+            <img
+              src="images/p22.png"
+              alt="IF4"
+              class="hidden w-full h-auto drop-shadow-xl transition-all duration-500"
+            />
+            <img
+              src="images/p21.png"
+              alt="IF4"
+              class="hidden w-full h-auto drop-shadow-xl transition-all duration-500"
+            />
+            <div
+              class="absolute -top-4 left-1/2 -translate-x-1/2 bg-red-600 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-xl"
+            >
+              Pro Series
+            </div>
+            <button
+              onclick="nextGallerySlide('p2-gallery')"
+              class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow hover:bg-white z-20"
+            >
+              <i data-lucide="chevron-right"></i>
+            </button>
+            <button
+              onclick="prevGallerySlide('p2-gallery')"
+              class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow hover:bg-white z-20"
+            >
+              <i data-lucide="chevron-left"></i>
+            </button>
+          </div>
+        </div>
+        <div class="details-pane lg:px-16">
+          <div class="mb-6 flex justify-between items-center">
+            <span
+              class="tag-badge bg-red-50 text-[#EB1C25] px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-colors"
+              >Thermal Transfer</span
+            >
+            <span
+              class="text-slate-400 font-bold line-through text-sm transition-colors"
+              >Rs. 26,000</span
+            >
+          </div>
+          <h3
+            class="text-3xl font-black mb-4 tracking-tight uppercase transition-colors"
+          >
+            iDPRT IF4 Pro Series
+          </h3>
+          <p
+            class="slide-desc text-slate-500 mb-8 text-sm font-medium leading-relaxed max-w-lg transition-colors"
+          >
+            Ultimate industrial engine. "रिबन भएको (Ribbon) र रिबन नभएको दुवै
+            अप्सनमा उपलब्ध छन्।" For permanent pharmaceutical tracking.
+          </p>
+          <div class="pt-6 border-t border-slate-100 space-y-6">
+            <div class="flex items-center justify-between">
+              <div class="flex flex-col">
+                <span
+                  class="price-label text-3xl font-black tracking-tight transition-colors"
+                  >Rs. 20,500</span
+                >
+                <span
+                  class="bg-brand-red text-white text-[9px] px-2 py-1 rounded font-black uppercase mt-1 w-fit transition-all"
+                  >Enterprise Choice</span
+                >
+              </div>
+              <div class="flex flex-col items-end">
+                <span
+                  class="qty-label text-[10px] font-black uppercase text-slate-400 mb-2 transition-colors font-bold"
+                  >Quantity</span
+                >
+                <div class="qty-container">
+                  <button onclick="changeQty(-1, 'p2-qty')" class="qty-btn">
+                    –
+                  </button>
+                  <input
+                    type="number"
+                    id="p2-qty"
+                    value="1"
+                    min="1"
+                    class="qty-input-field"
+                    readonly
+                  />
+                  <button onclick="changeQty(1, 'p2-qty')" class="qty-btn">
+                    +
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <button
+                onclick="setOrder('IF4', 'p2-qty')"
+                class="card-btn-primary py-4 bg-brand-red text-white font-black rounded-xl border-2 border-brand-red uppercase tracking-widest text-[10px] shadow-lg active:scale-95 transition-all"
+              >
+                Order Now
+              </button>
+               <button
+                onclick="openProductModal('modal-IF4')"
+                class="py-4 bg-white text-slate-700 font-black rounded-xl border-2 border-slate-200 hover:border-slate-800 hover:text-slate-900 uppercase tracking-widest text-[10px] shadow-sm transition-all"
+              >
+                Full Details
+              </button>
+              <a
+                href="https://wa.me/9779851423013"
+                class="flex items-center justify-center gap-2 py-4 bg-emerald-500 text-white font-black rounded-xl text-[9px] uppercase hover:bg-emerald-600"
+                ><i data-lucide="message-circle" class="w-4 h-4"></i>
+                WhatsApp</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+   <section class="py-24 px-6 bg-white">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-black text-slate-900 uppercase tracking-tighter">
+        Trusted by <span class="text-brand-red">All</span> Business Types
+      </h2>
+      <p class="text-slate-500 font-bold text-xs uppercase tracking-widest mt-2">
+        Professional Logistics for Every Niche in Nepal
+      </p>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
+      <div class="group bg-slate-50 p-4 rounded-3xl border border-slate-100 hover:border-red-500 transition-all text-center">
+        <img src="images/fashion.png" class="w-full h-32 object-cover rounded-2xl mb-4 transition-all" />
+        <h4 class="font-bold text-xs uppercase">Fashion Stores</h4>
+      </div>
+      <div class="group bg-slate-50 p-4 rounded-3xl border border-slate-100 hover:border-red-500 transition-all text-center">
+        <img src="images/gadgets.png" class="w-full h-32 object-cover rounded-2xl mb-4 transition-all" />
+        <h4 class="font-bold text-xs uppercase">Gadget Shops</h4>
+      </div>
+      <div class="group bg-slate-50 p-4 rounded-3xl border border-slate-100 hover:border-red-500 transition-all text-center">
+        <img src="images/cosmetics.jpeg" class="w-full h-32 object-cover rounded-2xl mb-4 transition-all" />
+        <h4 class="font-bold text-xs uppercase">Cosmetics</h4>
+      </div>
+      <div class="group bg-slate-50 p-4 rounded-3xl border border-slate-100 hover:border-red-500 transition-all text-center">
+        <img src="images/pharmacy.jpeg" class="w-full h-32 object-cover rounded-2xl mb-4 transition-all" />
+        <h4 class="font-bold text-xs uppercase">Pharmacies</h4>
+      </div>
+      <div class="group bg-slate-50 p-4 rounded-3xl border border-slate-100 hover:border-red-500 transition-all text-center">
+        <img src="images/gift.jpeg" class="w-full h-32 object-cover rounded-2xl mb-4 transition-all" />
+        <h4 class="font-bold text-xs uppercase">Gift Shops</h4>
+      </div>
+      <div class="group bg-slate-50 p-4 rounded-3xl border border-slate-100 hover:border-red-500 transition-all text-center">
+        <img src="images/footwear.jpeg" class="w-full h-32 object-cover rounded-2xl mb-4 transition-all" />
+        <h4 class="font-bold text-xs uppercase">Footwear</h4>
+      </div>
+      <div class="group bg-slate-50 p-4 rounded-3xl border border-slate-100 hover:border-red-500 transition-all text-center">
+        <img src="images/homedecor.jpeg" class="w-full h-32 object-cover rounded-2xl mb-4 transition-all" />
+        <h4 class="font-bold text-xs uppercase">Home Decor</h4>
+      </div>
+      <div class="group bg-slate-50 p-4 rounded-3xl border border-slate-100 hover:border-red-500 transition-all text-center">
+        <img src="images/books.jpeg" class="w-full h-32 object-cover rounded-2xl mb-4 transition-all" />
+        <h4 class="font-bold text-xs uppercase">Stationery</h4>
+      </div>
+      <div class="group bg-slate-50 p-4 rounded-3xl border border-slate-100 hover:border-red-500 transition-all text-center">
+        <img src="images/food.jpeg" class="w-full h-32 object-cover rounded-2xl mb-4 transition-all" />
+        <h4 class="font-bold text-xs uppercase">Organic Food</h4>
+      </div>
+      <div class="group bg-slate-50 p-4 rounded-3xl border border-slate-100 hover:border-red-500 transition-all text-center">
+        <img src="images/jewelry.jpeg" class="w-full h-32 object-cover rounded-2xl mb-4 transition-all" />
+        <h4 class="font-bold text-xs uppercase">Jewelry</h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <section class="py-24 px-6 bg-slate-950 text-white">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-3xl font-black text-center mb-16 uppercase tracking-widest">
+      Real Results in Nepal
+    </h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="p-8 bg-white/5 rounded-3xl border border-white/10 space-y-4">
+        <div class="flex gap-1 text-amber-500">
+          <i data-lucide="star" class="fill-current w-4 h-4"></i>
+          <i data-lucide="star" class="fill-current w-4 h-4"></i>
+          <i data-lucide="star" class="fill-current w-4 h-4"></i>
+          <i data-lucide="star" class="fill-current w-4 h-4"></i>
+          <i data-lucide="star" class="fill-current w-4 h-4"></i>
+        </div>
+        <p class="text-slate-400 italic">
+          "हाम्रो Daraz अर्डरको डेलिभरी अब ६०% छिटो भएको छ। A4 प्रिन्टर र SCALE को झन्झट अब सकियो!"
+        </p>
+        <div class="flex items-center gap-4 pt-4 border-t border-white/10">
+          <img src="https://xsgames.co/randomusers/assets/avatars/male/45.jpg" class="w-12 h-12 rounded-full border-2 border-red-500 object-cover" alt="Rohan K." />
+          <div>
+            <h4 class="font-bold text-sm">Rohan K.</h4>
+            <p class="text-[9px] text-slate-500 uppercase">Kathmandu Fashion Hub</p>
+          </div>
+        </div>
+      </div>
+      <div class="p-8 bg-white/5 rounded-3xl border border-white/10 space-y-4">
+        <div class="flex gap-1 text-amber-500">
+          <i data-lucide="star" class="fill-current w-4 h-4"></i>
+          <i data-lucide="star" class="fill-current w-4 h-4"></i>
+          <i data-lucide="star" class="fill-current w-4 h-4"></i>
+          <i data-lucide="star" class="fill-current w-4 h-4"></i>
+          <i data-lucide="star" class="fill-current w-4 h-4"></i>
+        </div>
+        <p class="text-slate-400 italic">
+          "The IF4 Pro reliability is unmatched. Every barcode is perfectly clear for medicine tracking."
+        </p>
+        <div class="flex items-center gap-4 pt-4 border-t border-white/10">
+          <img src="https://xsgames.co/randomusers/assets/avatars/female/24.jpg" class="w-12 h-12 rounded-full border-2 border-red-500 object-cover" alt="Sunita P." />
+          <div>
+            <h4 class="font-bold text-sm">Sunita P.</h4>
+            <p class="text-[9px] text-slate-500 uppercase">Pharma Retail Chain</p>
+          </div>
+        </div>
+      </div>
+      <div class="p-8 bg-white/5 rounded-3xl border border-white/10 space-y-4">
+        <div class="flex gap-1 text-amber-500">
+          <i data-lucide="star" class="fill-current w-4 h-4"></i>
+          <i data-lucide="star" class="fill-current w-4 h-4"></i>
+          <i data-lucide="star" class="fill-current w-4 h-4"></i>
+          <i data-lucide="star" class="fill-current w-4 h-4"></i>
+          <i data-lucide="star" class="fill-current w-4 h-4"></i>
+        </div>
+        <p class="text-slate-400 italic">
+          "Shipping labels directly from Pathao dashboard has saved us 2 hours daily. Professional look."
+        </p>
+        <div class="flex items-center gap-4 pt-4 border-t border-white/10">
+          <img src="https://xsgames.co/randomusers/assets/avatars/male/7.jpg" class="w-12 h-12 rounded-full border-2 border-red-500 object-cover" alt="Binod M." />
+          <div>
+            <h4 class="font-bold text-sm">Binod M.</h4>
+            <p class="text-[9px] text-slate-500 uppercase">Nepal Gadget House</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- अर्डर फर्म सेक्सन -->
+    <section
+      id="order-form"
+      class="py-24 px-6 bg-slate-100 border-t border-slate-200"
+    >
+      <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+        <div class="space-y-8 text-center lg:text-left">
+          <h2
+            class="text-4xl font-black tracking-tighter leading-tight italic uppercase"
+          >
+            Automate Label Workflow.
+          </h2>
+          <p class="text-slate-500 text-base font-medium leading-relaxed">
+            Nationwide delivery and setup provided by Anshu Traders. स्टक सीमित
+            छ, आजै अर्डर गर्नुस्!
+          </p>
+          <div class="flex justify-center lg:justify-start gap-4">
+            <div
+              class="bg-white p-4 rounded-2xl border border-slate-200 shadow-lg text-center"
+            >
+              <img src="images/pd3.png" class="h-20 mx-auto" />
+              <p class="text-[8px] font-black uppercase mt-2">iD888 Desktop</p>
+            </div>
+            <div
+              class="bg-white p-4 rounded-2xl border border-slate-200 shadow-lg text-center"
+            >
+              <img src="images/p23.png" class="h-20 mx-auto" />
+              <p class="text-[8px] font-black uppercase mt-2">IF4 Pro Series</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="form-container">
+          <form
+            id="landing-form"
+            class="bg-white p-8 md:p-10 rounded-[2.5rem] border border-slate-200 shadow-2xl space-y-6"
+          >
+            <div class="space-y-3">
+              <label
+                class="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 ml-1"
+                >Hardware Requisition</label
+              >
+              <div class="relative">
+                <select
+                  id="form-product"
+                  class="w-full px-6 py-5 rounded-xl bg-slate-50 border border-slate-200 font-bold appearance-none cursor-pointer focus:ring-2 focus:ring-blue-500 outline-none"
+                >
+                  <option value="iD888">iD888 Desktop (Rs. 13,500)</option>
+                  <option value="IF4">IF4 Professional (Rs. 20,500)</option>
+                </select>
+                <i
+                  data-lucide="chevron-down"
+                  class="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 w-5 h-5"
+                ></i>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                type="text"
+                id="name"
+                required
+                placeholder="Full Name"
+                class="px-6 py-5 rounded-xl bg-slate-50 border border-slate-200 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none"
+              />
+              <input
+                type="tel"
+                id="phone"
+                required
+                placeholder="Contact Number"
+                class="px-6 py-5 rounded-xl bg-slate-50 border border-slate-200 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none"
+              />
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4 items-center">
+              <div class="w-full sm:w-1/3">
+                <label
+                  class="text-[8px] font-black uppercase text-slate-400 mb-1 block ml-1"
+                  >Quantity</label
+                >
+                <div class="qty-container">
+                  <button
+                    type="button"
+                    onclick="changeQty(-1, 'form-qty')"
+                    class="qty-btn"
+                  >
+                    –
+                  </button>
+                  <input
+                    type="number"
+                    id="form-qty"
+                    value="1"
+                    min="1"
+                    class="qty-input-field"
+                    readonly
+                  />
+                  <button
+                    type="button"
+                    onclick="changeQty(1, 'form-qty')"
+                    class="qty-btn"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+              <div class="w-full sm:w-2/3">
+                <label
+                  class="text-[8px] font-black uppercase text-slate-400 mb-1 block ml-1"
+                  >Address</label
+                >
+                <input
+                  type="text"
+                  id="address"
+                  required
+                  placeholder="City, Street, Landmark"
+                  class="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-200 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none"
+                />
+              </div>
+            </div>
+            <button
+              type="submit"
+              id="submit-btn"
+              class="w-full py-5 btn-gradient text-white rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] shadow-xl active:scale-95 transition-transform"
+            >
+              Process Order (COD)
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- iD888 Product Modal -->
+    <div
+      id="modal-iD888"
+      class="fixed inset-0 z-[2000] hidden flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm"
+    >
+      <div class="bg-white w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-3xl p-8 relative">
+        <button onclick="closeProductModal('modal-iD888')" class="absolute top-6 right-6 p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors">
+          <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <div class="mb-8 pr-12">
+            <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tighter mb-2">iD888 Desktop Master</h2>
+            <span class="inline-block bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full uppercase">Direct Thermal</span>
+        </div>
+        
+        <div class="space-y-8">
+            <p class="text-slate-600 leading-relaxed text-lg">
+                The iD888 is a Direct Thermal Barcode Printer manufactured by iDPRT. It is a compact and reliable solution designed for high-volume shipping labels, retail tags, and inventory tracking without the need for ink or toner.
+            </p>
+
+            <div>
+                <h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+                    <i data-lucide="check-square" class="text-brand-red w-5 h-5"></i> Key Features
+                </h3>
+                <ul class="grid md:grid-cols-2 gap-3">
+                    <li class="flex items-start gap-2 text-sm text-slate-600">
+                        <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-2"></span>
+                        <span><strong>Printing Method:</strong> Direct Thermal (no ink/toner required)</span>
+                    </li>
+                    <li class="flex items-start gap-2 text-sm text-slate-600">
+                        <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-2"></span>
+                        <span><strong>Print Speed:</strong> Up to 8 inches per second (200 mm/s)</span>
+                    </li>
+                    <li class="flex items-start gap-2 text-sm text-slate-600">
+                        <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-2"></span>
+                        <span><strong>Resolution:</strong> 203 dpi</span>
+                    </li>
+                    <li class="flex items-start gap-2 text-sm text-slate-600">
+                        <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-2"></span>
+                        <span><strong>Max Print Width:</strong> 4.25″ (108mm)</span>
+                    </li>
+                    <li class="flex items-start gap-2 text-sm text-slate-600">
+                        <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-2"></span>
+                        <span><strong>Memory:</strong> 128 MB Flash / 32 MB RAM</span>
+                    </li>
+                    <li class="flex items-start gap-2 text-sm text-slate-600">
+                        <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-2"></span>
+                        <span><strong>Connectivity:</strong> Standard USB-B and Ethernet</span>
+                    </li>
+                    <li class="flex items-start gap-2 text-sm text-slate-600">
+                        <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-2"></span>
+                        <span><strong>Emulations:</strong> ZPL-II, TSPL, DPL, EPL2</span>
+                    </li>
+                    <li class="flex items-start gap-2 text-sm text-slate-600">
+                        <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-2"></span>
+                        <span><strong>Media Compatibility:</strong> Continuous, die-cut, black mark, fan-fold</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+                    <i data-lucide="settings" class="text-brand-red w-5 h-5"></i> Technical Specifications
+                </h3>
+                <div class="overflow-x-auto rounded-xl border border-slate-200">
+                    <table class="w-full text-sm text-left text-slate-600">
+                        <tbody class="divide-y divide-slate-100">
+                            <tr class="bg-slate-50">
+                                <td class="px-4 py-3 font-bold text-slate-800 w-1/3">Printer Model</td>
+                                <td class="px-4 py-3">iD888</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-bold text-slate-800">Resolution</td>
+                                <td class="px-4 py-3">203dpi</td>
+                            </tr>
+                            <tr class="bg-slate-50">
+                                <td class="px-4 py-3 font-bold text-slate-800">Printing Method</td>
+                                <td class="px-4 py-3">Direct Thermal</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-bold text-slate-800">Max. Print Speed</td>
+                                <td class="px-4 py-3">8 ips</td>
+                            </tr>
+                            <tr class="bg-slate-50">
+                                <td class="px-4 py-3 font-bold text-slate-800">Max. Print Width</td>
+                                <td class="px-4 py-3">4.25" (108mm)</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-bold text-slate-800">Max. Print Length</td>
+                                <td class="px-4 py-3">51" (1296mm)</td>
+                            </tr>
+                            <tr class="bg-slate-50">
+                                <td class="px-4 py-3 font-bold text-slate-800">Dimensions</td>
+                                <td class="px-4 py-3">6.89"(175mm) x 6.30"(160mm) x 8.62"(219mm)</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-bold text-slate-800">Weight</td>
+                                <td class="px-4 py-3">3.00lbs (1.65kg)</td>
+                            </tr>
+                            <tr class="bg-slate-50">
+                                <td class="px-4 py-3 font-bold text-slate-800">Processor</td>
+                                <td class="px-4 py-3">32-bit RISC CPU</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-bold text-slate-800">Memory</td>
+                                <td class="px-4 py-3">128 MB Flash / 32 MB RAM</td>
+                            </tr>
+                            <tr class="bg-slate-50">
+                                <td class="px-4 py-3 font-bold text-slate-800">Interface</td>
+                                <td class="px-4 py-3">Standard: USB-B and Ethernet 10/100Base T</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-bold text-slate-800">Power</td>
+                                <td class="px-4 py-3">Input: AC 100~240V, 2.0A, 50~60 Hz<br>Output: DC 24V 2A, 48W</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="flex gap-4">
+                <button onclick="closeProductModal('modal-iD888')" class="flex-1 py-4 bg-slate-100 text-slate-700 font-bold rounded-xl uppercase tracking-widest text-xs hover:bg-slate-200 transition-colors">Close Details</button>
+                <a href="#order-form" onclick="closeProductModal('modal-iD888')" class="flex-1 py-4 bg-brand-red text-white font-bold rounded-xl uppercase tracking-widest text-xs text-center hover:opacity-90 transition-opacity">Order This Model</a>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IF4 Product Modal -->
+    <div
+      id="modal-IF4"
+      class="fixed inset-0 z-[2000] hidden flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm"
+    >
+      <div class="bg-white w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-3xl p-8 relative">
+        <button onclick="closeProductModal('modal-IF4')" class="absolute top-6 right-6 p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors">
+          <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <div class="mb-8 pr-12">
+            <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tighter mb-2">iDPRT IF4 Pro Series</h2>
+            <span class="inline-block bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full uppercase">Thermal Transfer + Direct Thermal</span>
+        </div>
+        
+        <div class="space-y-8">
+            <p class="text-slate-600 leading-relaxed text-lg">
+                The IDPRT IF4 is a versatile desktop barcode printer capable of both thermal transfer and direct thermal printing. It features 203/300dpi auto-recognition, high-speed output up to 5ips, optional wireless connectivity, and broad compatibility for retail, logistics, and pharmaceutical applications.
+            </p>
+
+            <div>
+                <h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+                    <i data-lucide="settings" class="text-brand-red w-5 h-5"></i> Technical Specifications
+                </h3>
+                <div class="overflow-x-auto rounded-xl border border-slate-200">
+                    <table class="w-full text-sm text-left text-slate-600">
+                        <tbody class="divide-y divide-slate-100">
+                            <tr class="bg-slate-50">
+                                <td class="px-4 py-3 font-bold text-slate-800 w-1/3">Brand Name</td>
+                                <td class="px-4 py-3">iDPRT</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-bold text-slate-800">Max Paper Size</td>
+                                <td class="px-4 py-3">118mm max width</td>
+                            </tr>
+                            <tr class="bg-slate-50">
+                                <td class="px-4 py-3 font-bold text-slate-800">Black Print Speed</td>
+                                <td class="px-4 py-3">6 ips (203 dpi), 5 ips (300 dpi)</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-bold text-slate-800">Memory</td>
+                                <td class="px-4 py-3">RAM 64MB / Flash 128MB</td>
+                            </tr>
+                            <tr class="bg-slate-50">
+                                <td class="px-4 py-3 font-bold text-slate-800">Media Type</td>
+                                <td class="px-4 py-3">Continuous, Die-Cut, Black Mark, Fan-Fold, Notched</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-bold text-slate-800">Media Width</td>
+                                <td class="px-4 py-3">20 mm - 118 mm</td>
+                            </tr>
+                            <tr class="bg-slate-50">
+                                <td class="px-4 py-3 font-bold text-slate-800">Media Thickness</td>
+                                <td class="px-4 py-3">60 μm - 200 μm</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-bold text-slate-800">Ribbon Type</td>
+                                <td class="px-4 py-3">Wax, Wax/Resin, Resin</td>
+                            </tr>
+                            <tr class="bg-slate-50">
+                                <td class="px-4 py-3 font-bold text-slate-800">Ribbon Width</td>
+                                <td class="px-4 py-3">40 mm - 110 mm</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-bold text-slate-800">Ribbon Length</td>
+                                <td class="px-4 py-3">Max. 984 feet (300 m)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="flex gap-4">
+                <button onclick="closeProductModal('modal-IF4')" class="flex-1 py-4 bg-slate-100 text-slate-700 font-bold rounded-xl uppercase tracking-widest text-xs hover:bg-slate-200 transition-colors">Close Details</button>
+                <a href="#order-form" onclick="closeProductModal('modal-IF4')" class="flex-1 py-4 bg-brand-red text-white font-bold rounded-xl uppercase tracking-widest text-xs text-center hover:opacity-90 transition-opacity">Order This Model</a>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- सक्सेस मोडल -->
+    <div
+      id="success-modal"
+      class="fixed inset-0 z-[1000] hidden flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm"
+    >
+      <div
+        class="success-animate bg-white w-full max-w-lg p-10 rounded-[2.5rem] shadow-2xl text-center relative"
+      >
+        <div
+          class="w-20 h-20 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-8"
+        >
+          <i data-lucide="check-circle-2" class="w-10 h-10"></i>
+        </div>
+        <div id="success-text" class="space-y-4"></div>
+        <a
+          href="https://anshutraders.com/shop/"
+          class="mt-8 block w-full py-4 bg-slate-900 text-white rounded-2xl font-black uppercase text-[10px] tracking-[0.3em] hover:bg-brand-red transition-all text-center no-underline"
+        >
+          Visit Anshu Traders Main Website
+        </a>
+      </div>
+    </div>
+
+    <!-- कन्ट्याक्ट विजेट -->
+    <div class="contact-widget">
+      <div class="contact-dropdown" id="contactDropdown">
+        <a
+          href="https://wa.me/9779851423013"
+          target="_blank"
+          class="contact-item"
+          ><i data-lucide="message-circle" class="text-emerald-500"></i>
+          WhatsApp Chat</a
+        >
+        <a href="tel:+9779851423013" class="contact-item"
+          ><i data-lucide="phone" class="text-blue-600"></i> Call Now</a
+        >
+        <a href="mailto:info@anshutraders.com" class="contact-item"
+          ><i data-lucide="mail" class="text-red-500"></i> Email Us</a
+        >
+      </div>
+      <button
+        class="contact-toggle"
+        id="contactToggle"
+        onclick="toggleContactMenu()"
+      >
+        <i data-lucide="message-circle" class="w-6 h-6"></i>
+      </button>
+    </div>
+
+    <footer
+      class="bg-slate-950 text-slate-50 py-16 px-8 border-t border-white/5"
+    >
+      <div
+        class="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-center gap-12 text-center lg:text-left"
+      >
+        <div class="space-y-4">
+          <div class="flex items-center justify-center lg:justify-start gap-3">
+            <img
+              src="images/logo.png"
+              alt="Anshu Traders"
+              class="h-8 w-auto brightness-0 invert"
+            />
+             
+          </div>
+          <p
+            class="text-[9px] font-bold uppercase tracking-[0.4em] text-slate-400"
+          >
+            Authorized iDPRT Infrastructure Nepal
+          </p>
+          <div class="flex justify-center lg:justify-start gap-4">
+            <a
+              href="https://www.facebook.com/profile.php?id=100090419351378"
+              class="text-slate-400 hover:text-white transition-colors"
+              ><i data-lucide="facebook" class="w-5 h-5"></i
+            ></a>
+            <a
+              href="https://www.instagram.com/anshu_traders"
+              class="text-slate-400 hover:text-white transition-colors"
+              ><i data-lucide="instagram" class="w-5 h-5"></i
+            ></a>
+          </div>
+        </div>
+        <div
+          class="text-[9px] font-bold uppercase tracking-[0.3em] max-w-sm leading-relaxed text-slate-500"
+        >
+          © 2026 Anshu Traders Ltd. Kathmandu HQ. Certified hardware units with
+          genuine factory warranties. All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      lucide.createIcons();
+
+      // --- हिरो स्लाइडर लजिक ---
+      let currentHero = 0;
+      let heroTimer;
+      let track;
+      let dots = [];
+
+      function initCarousel() {
+        track = document.getElementById("hero-track");
+        const dotsList = document.querySelectorAll(".hero-dot");
+        dots = Array.from(dotsList);
+
+        if (track && dots.length > 0) {
+          updateSlider();
+          resetTimer();
+        }
+      }
+
+      function updateSlider() {
+        if (!track || dots.length === 0) return;
+        track.style.transform = `translateX(-${currentHero * 100}%)`;
+        dots.forEach((dot, i) => {
+          if (i === currentHero) {
+            dot.classList.add("active");
+          } else {
+            dot.classList.remove("active");
+          }
+        });
+      }
+
+      function gotoSlide(idx) {
+        currentHero = idx;
+        updateSlider();
+        resetTimer();
+      }
+
+      function resetTimer() {
+        if (heroTimer) clearInterval(heroTimer);
+        heroTimer = setInterval(() => {
+          currentHero = (currentHero + 1) % 3;
+          updateSlider();
+        }, 7000);
+      }
+
+      // --- टाइपराइटर इफेक्ट ---
+      const typewriterEl = document.getElementById("typewriter-text");
+      const phrases = [
+        "Enterprise Labeling",
+        "Industrial Printing",
+        "Logistics Tracking",
+        "Barcode Solutions",
+      ];
+      let pIdx = 0,
+        cIdx = 0,
+        isDel = false;
+
+      function type() {
+        const cur = phrases[pIdx];
+        if (!typewriterEl) return;
+        typewriterEl.textContent = isDel
+          ? cur.substring(0, cIdx--)
+          : cur.substring(0, cIdx++);
+        if (!isDel && cIdx === cur.length + 1) {
+          isDel = true;
+          setTimeout(type, 2500);
+        } else if (isDel && cIdx === 0) {
+          isDel = false;
+          pIdx = (pIdx + 1) % phrases.length;
+          setTimeout(type, 500);
+        } else {
+          setTimeout(type, isDel ? 50 : 100);
+        }
+      }
+
+      // --- एटोमिक क्यानभास (Static Version) ---
+      const canvas = document.getElementById("atomic-canvas");
+      const ctx = canvas.getContext("2d");
+
+      function drawStaticBackground() {
+        if (!canvas || !ctx) return;
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw static red dots
+        ctx.fillStyle = "rgba(235, 28, 37, 0.1)";
+        for (let i = 0; i < 40; i++) {
+          ctx.beginPath();
+          ctx.arc(
+            Math.random() * canvas.width,
+            Math.random() * canvas.height,
+            Math.random() * 3 + 1,
+            0,
+            Math.PI * 2
+          );
+          ctx.fill();
+        }
+
+        // Draw static blue connection lines
+        ctx.strokeStyle = "rgba(0, 86, 179, 0.05)";
+        for (let i = 0; i < 20; i++) {
+          ctx.beginPath();
+          ctx.moveTo(
+            Math.random() * canvas.width,
+            Math.random() * canvas.height
+          );
+          ctx.lineTo(
+            Math.random() * canvas.width,
+            Math.random() * canvas.height
+          );
+          ctx.stroke();
+        }
+      }
+
+      // --- अन्य फङ्सनहरू ---
+      function changeQty(d, id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        let v = parseInt(el.value) + d;
+        if (v >= 1) {
+          el.value = v;
+          const card = el.closest(".product-card");
+          if (card) {
+            const price = parseInt(card.getAttribute("data-price"));
+            const priceLabel = card.querySelector(".price-label");
+            if (priceLabel) {
+              priceLabel.textContent = `Rs. ${(price * v).toLocaleString()}`;
+            }
+          }
+        }
+      }
+
+      function setOrder(m, qId) {
+        const productField = document.getElementById("form-product");
+        const qtyField = document.getElementById("form-qty");
+        const qtyVal = document.getElementById(qId);
+        if (productField && qtyField && qtyVal) {
+          productField.value = m;
+          qtyField.value = qtyVal.value;
+          const orderForm = document.getElementById("order-form");
+          if (orderForm) {
+            orderForm.scrollIntoView({ behavior: "smooth" });
+          }
+        }
+      }
+
+      function nextGallerySlide(id) {
+        const g = document.getElementById(id);
+        if (!g) return;
+        const imgs = g.querySelectorAll("img");
+        let cur = 0;
+        imgs.forEach((img, i) => {
+          if (!img.classList.contains("hidden")) cur = i;
+        });
+        imgs[cur].classList.add("hidden");
+        imgs[(cur + 1) % imgs.length].classList.remove("hidden");
+      }
+
+      function prevGallerySlide(id) {
+        const g = document.getElementById(id);
+        if (!g) return;
+        const imgs = g.querySelectorAll("img");
+        let cur = 0;
+        imgs.forEach((img, i) => {
+          if (!img.classList.contains("hidden")) cur = i;
+        });
+        imgs[cur].classList.add("hidden");
+        imgs[(cur - 1 + imgs.length) % imgs.length].classList.remove("hidden");
+      }
+
+      // --- Modal Functions ---
+      function openProductModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.remove('hidden');
+            // Re-initialize icons inside modal if needed
+            lucide.createIcons();
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+        }
+      }
+
+      function closeProductModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.add('hidden');
+            // Restore body scroll
+            document.body.style.overflow = 'auto';
+        }
+      }
+
+      // Close modal on outside click
+      window.addEventListener('click', function(event) {
+        if (event.target.classList.contains('fixed') && event.target.id.startsWith('modal-')) {
+            closeProductModal(event.target.id);
+        }
+      });
+
+      function toggleContactMenu() {
+        const drop = document.getElementById("contactDropdown");
+        if (drop) drop.classList.toggle("show");
+      }
+
+      function closeModal() {
+        const modal = document.getElementById("success-modal");
+        if (modal) modal.classList.add("hidden");
+      }
+
+      // --- GOOGLE SHEETS INTEGRATION ---
+      const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyie3eGKGVCQno79I0nneSZ2LLqGduokxM-JvTNATMAJ1_mT3N7A8P0YlNfufhOiv8V/exec";
+
+      // --- फर्म सबमिसन (Updated with Google Sheets Integration) ---
+      const form = document.getElementById("landing-form");
+      if (form) {
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const btn = document.getElementById("submit-btn");
+          if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = '<span class="animate-spin inline-block mr-2">◌</span> PROCESSING...';
+          }
+
+          const name = document.getElementById("name").value;
+          const product = document.getElementById("form-product").value;
+          const qty = document.getElementById("form-qty").value;
+          const phone = document.getElementById("phone").value;
+          const address = document.getElementById("address").value;
+          const orderId = "ANS-" + Math.random().toString(36).substr(2, 9).toUpperCase();
+           
+          // Calculate price based on product
+          let price = 13500;
+          if (product === "IF4") price = 20500;
+          const totalPrice = price * parseInt(qty);
+
+          // Prepare form data for Google Sheets
+          const formData = new FormData();
+          formData.append("timestamp", new Date().toLocaleString());
+          formData.append("orderId", orderId);
+          formData.append("name", name);
+          formData.append("phone", phone);
+          formData.append("address", address);
+          formData.append("product", product);
+          formData.append("quantity", qty);
+          formData.append("price", price);
+          formData.append("total", totalPrice);
+          formData.append("status", "Pending");
+
+          try {
+            // Send data to Google Sheets
+            const response = await fetch(SCRIPT_URL, {
+              method: "POST",
+              body: formData
+            });
+
+            const result = await response.text();
+            console.log("Google Sheets response:", result);
+
+            // Show success modal
+            const st = document.getElementById("success-text");
+            if (st) {
+              st.innerHTML = `
+                <div class="text-center mb-6">
+                    <img src="images/logo.png" alt="Anshu Traders Logo" class="h-10 mx-auto" />
+                </div>
+                <div class="text-left px-2 space-y-4">
+                  <p class="text-slate-600">Dear <b>${name}</b>, your requisition for <b>${qty}x ${product}</b> has been successfully registered!</p>
+                  <p class="text-[11px] font-bold text-slate-500 uppercase">Confirming Shipping to: ${address}</p>
+                  <p class="text-slate-600 italic">An executive will call you at <b>${phone}</b> for final dispatch confirmation.</p>
+                  <div class="mt-6 p-4 bg-green-50 rounded-xl border border-green-200">
+                    <p class="text-sm font-bold text-green-700">Order submitted successfully</p>
+                    <p class="text-xs text-green-600 mt-1">Your order has been logged in our system with ID: ${orderId}</p>
+                  </div>
+                </div>
+              `;
+            }
+             
+            const sm = document.getElementById("success-modal");
+            if (sm) sm.classList.remove("hidden");
+             
+            // Reset form
+            form.reset();
+            document.getElementById("form-qty").value = "1";
+
+          } catch (error) {
+            console.error("Error submitting to Google Sheets:", error);
+             
+            // Show error message but still show success modal
+            const st = document.getElementById("success-text");
+            if (st) {
+              st.innerHTML = `
+                <div class="text-center mb-6">
+                    <img src="images/logo.png" alt="Anshu Traders Logo" class="h-10 mx-auto" />
+                </div>
+                <div class="text-left px-2 space-y-4">
+                  <p class="text-slate-600">Dear <b>${name}</b>, your requisition for <b>${qty}x ${product}</b> has been registered locally!</p>
+                  <p class="text-[11px] font-bold text-slate-500 uppercase">Shipping to: ${address}</p>
+                  <div class="mt-6 p-4 bg-yellow-50 rounded-xl border border-yellow-200">
+                    <p class="text-sm font-bold text-yellow-700">⚠ Note: Could not connect to server</p>
+                    <p class="text-xs text-yellow-600 mt-1">Our team will still contact you at <b>${phone}</b> to confirm your order.</p>
+                  </div>
+                </div>
+              `;
+            }
+             
+            const sm = document.getElementById("success-modal");
+            if (sm) sm.classList.remove("hidden");
+          } finally {
+            if (btn) {
+              btn.disabled = false;
+              btn.innerHTML = "Process Order (COD)";
+            }
+          }
+        });
+      }
+
+      // --- DOMContentLoaded इभेन्टमा इनिसियलाइज गर्ने ---
+      document.addEventListener("DOMContentLoaded", () => {
+        initCarousel();
+
+        // क्यानभास सेटअप
+        if (canvas) {
+          drawStaticBackground();
+        }
+
+        type();
+      });
+
+      // Resize handler
+      window.addEventListener("resize", () => {
+        drawStaticBackground();
+      });
+    </script>
+  </body>
+</html>
